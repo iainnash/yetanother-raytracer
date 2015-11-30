@@ -20,6 +20,8 @@ public:
   ShadeHint() {
     
   };
+  float tri_u;
+  float tri_v;
   float cam_distance;
   vec3 normal;
   vec3 local_hit;

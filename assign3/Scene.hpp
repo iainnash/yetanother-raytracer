@@ -30,9 +30,10 @@ public:
   std::vector<Triangle> triangles;
   std::vector<Sphere> spheres;
   double ambient_light[3];
-  bool hasNoObjectIntersections(const Ray& r);
+  bool hasNoObjectIntersections(const SceneObject *o, const Ray& r);
   SceneObject* getClosestObject(const Ray& ray, float *raymin, ShadeHint *hitsh);
   void read_file(char *file);
+  const Color ray_to_raster(const Ray& r);
 };
 
 

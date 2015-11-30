@@ -19,7 +19,9 @@ Name: Iain Nash
 #include "ShadeHint.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Color.h"
-
+#include <pthread.h>
+#include "RenderTask.hpp"
+#include <chrono>
 
 #define MAX_TRIANGLES 2000
 #define MAX_SPHERES 10
@@ -50,65 +52,130 @@ void plot_pixel_display(int x,int y,unsigned char r,unsigned char g,unsigned cha
 void plot_pixel_jpeg(int x,int y,unsigned char r,unsigned char g,unsigned char b);
 void plot_pixel(int x,int y,unsigned char r,unsigned char g,unsigned char b);
 
+void *run_thread(void *renderproc) {
+  RenderTask *rp = (RenderTask*)renderproc;
+  for (int y = 0; y < rp->yrange(); y++) {
+    for (int x = 0; x < rp->xrange(); x++) {
+      Ray ray = rp->rt.cast_fast(rp->xi + x, rp->yi + y);
+      Color r = rp->s.ray_to_raster(ray);
+      buffer[rp->yi + y][rp->xi + x][0] = r.get_r();
+      buffer[rp->yi + y][rp->xi + x][1] = r.get_g();
+      buffer[rp->yi + y][rp->xi + x][2] = r.get_b();
+    }
+  }
+  pthread_exit(NULL);
+}
+
+void save_jpg()
+{
+  Pic *in = NULL;
+  
+  in = pic_alloc(640, 480, 3, NULL);
+  printf("Saving JPEG file: %s\n", filename);
+  
+  memcpy(in->pix,buffer,3*WIDTH*HEIGHT);
+  if (jpeg_write(filename, in))
+    printf("File saved Successfully\n");
+  else
+    printf("Error in Saving\n");
+  
+  pic_free(in);
+  
+}
+
+void draw_scene_threaded(int numThreads) {
+  
+  int perRows = HEIGHT / numThreads;
+  int perCols = WIDTH / numThreads;
+  
+  RayThrower thrower(vec3(0, 0, 0), WIDTH, HEIGHT, fov);
+  
+  vector<RenderTask*> rp_v;
+  
+  RenderTask ***rpg = new RenderTask**[perRows];
+  for (int i = 0; i < perRows; i++) {
+    rpg[i] = new RenderTask*[perCols];
+  }
+  
+  for (int yi = 0, yti = 0; yi <= HEIGHT - perRows; yi += perRows, yti++) {
+    int ym = std::min(yi + perRows, HEIGHT);
+    for (int xi = 0, xti = 0; xi <= WIDTH - perCols; xi += perCols, xti++) {
+      int xm = std::min(xi + perCols, WIDTH);
+      int xrange = xm - xi;
+      int yrange = ym - yi;
+      RenderTask *rp = new RenderTask(scene, thrower, ym, yi, xm, xi);
+      rpg[yti][xti] = rp;
+      rp_v.push_back(rp);
+    }
+  }
+  
+  pthread_attr_t attr;
+  
+  // Initialize and set thread joinable
+  pthread_attr_init(&attr);
+  pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+  int rc, i;
+  void *status;
+  
+  std::chrono::milliseconds start = std::chrono::duration_cast< std::chrono::milliseconds >(
+    std::chrono::system_clock::now().time_since_epoch());
+  
+  pthread_t *threads = new pthread_t[rp_v.size()];
+  for (i = 0; i < rp_v.size(); i++) {
+    rc = pthread_create(&threads[i], NULL, run_thread, (void *)rp_v[i]);
+    if (rc) {
+      cerr << " ERR: Unable to start thread. " << endl;
+      exit(-1);
+    }
+  }
+  
+  pthread_attr_destroy(&attr);
+  
+  for(i = 0; i < rp_v.size(); i++){
+    rc = pthread_join(threads[i], &status);
+    if (rc){
+      cout << "Error:unable to join," << rc << endl;
+      exit(-1);
+    }
+  }
+  
+  std::chrono::milliseconds elapsed = std::chrono::duration_cast< std::chrono::milliseconds >(
+    std::chrono::system_clock::now().time_since_epoch()) - start;
+  
+  cout << "All " << rp_v.size() << " threads done!" << endl;
+  cout << "Time Elapsed: " << elapsed.count() << "ms" << endl;
+  
+  if (filename == NULL) filename = (char *)"default_render.jpg";
+  save_jpg();
+
+}
+
 //MODIFY THIS FUNCTION
 void draw_scene()
 {
-  double lookx, looky;
   Ray ray;
   SceneObject *curobj;
-  ray.o = vec3(0,0,0);
-    
-  const double aspectratio = double(WIDTH) / double(HEIGHT);
-  static float angle = tan(M_PI * fov / 360.f);
+  
+  RayThrower raythrower(vec3(0, 0, 0), WIDTH, HEIGHT, fov);
   
   //simple output
-  for(int xi=0; xi<WIDTH; xi++)
+  for(int yi=0; yi<HEIGHT; yi++)
   {
     glPointSize(2.0);  
     glBegin(GL_POINTS);
     
-    for(int yi=0; yi < HEIGHT; yi++)
+    for(int xi=0; xi < WIDTH; xi++)
     {
-      lookx = (2*((double(xi)+0.5)*1.0/WIDTH)-1) * angle * aspectratio;
-      looky = (1 - 2 * ((double(yi) + 0.5)*(1.0/HEIGHT))) * angle;
-
-      ray.d = normalize(vec3(lookx, looky, -1));
-      
-      //std::cout << "lookx: " << lookx << " looky: " << looky << std::endl;
-      float raymin;
-      ShadeHint hitsh;
-      curobj = scene.getClosestObject(ray, &raymin, &hitsh);
-      if (curobj != nullptr) {
-        Color pix_col(scene.ambient_light);
-        // we've intesected an object
-        for (auto light : scene.lights) {
-          Ray shadowRay = ray.createShadowRay(raymin, light);
-          if (scene.hasNoObjectIntersections(shadowRay)) {
-            switch (curobj->type()) {
-              case SceneObject::TYPE::SPHERE:
-                pix_col += curobj->calc_color(shadowRay, light, &hitsh);
-                break;
-              case SceneObject::TYPE::TRIANGLE:
-                pix_col += curobj->calc_color(shadowRay, light, &hitsh);
-                break;
-            }
-          }
-        }
-        Color color = pix_col + Color(scene.ambient_light);
-        plot_pixel(xi, yi, color.get_r(), color.get_g(), color.get_b());
-      }
-      
+      ray = raythrower.cast_fast(xi, yi);
+      Color c = scene.ray_to_raster(ray);
+      plot_pixel(xi, HEIGHT-1-yi, c.get_r(), c.get_g(), c.get_b());
     }
     glEnd();
     glFlush();
   }
-
-
-
-
-  printf("Done!\n"); fflush(stdout);
+  printf("Done!\n");
+  fflush(stdout);
 }
-
 
 void plot_pixel_display(int x,int y,unsigned char r,unsigned char g,unsigned char b)
 {
@@ -130,22 +197,7 @@ void plot_pixel(int x,int y,unsigned char r,unsigned char g, unsigned char b)
       plot_pixel_jpeg(x,y,r,g,b);
 }
 
-void save_jpg()
-{
-  Pic *in = NULL;
 
-  in = pic_alloc(640, 480, 3, NULL);
-  printf("Saving JPEG file: %s\n", filename);
-
-  memcpy(in->pix,buffer,3*WIDTH*HEIGHT);
-  if (jpeg_write(filename, in))
-    printf("File saved Successfully\n");
-  else
-    printf("Error in Saving\n");
-
-  pic_free(in);      
-
-}
 
 
 void display()
@@ -170,11 +222,16 @@ void idle()
   static int once=0;
   if(!once)
   {
-      draw_scene();
+  /*    draw_scene();
       if(mode == MODE_JPEG)
 	save_jpg();
-    }
+    }*/
+    
+    //if(mode == MODE_JPEG)
+      //save_jpg();
+  
   once=1;
+    }
 }
 
 int main (int argc, char ** argv)
@@ -195,7 +252,10 @@ int main (int argc, char ** argv)
   glutInit(&argc,argv);
 
   scene.read_file(argv[1]);
-
+  
+  draw_scene_threaded(3);
+  /*
+  cout << "setting up display" << endl;
   glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
   glutInitWindowPosition(0,0);
   glutInitWindowSize(WIDTH,HEIGHT);
@@ -204,4 +264,6 @@ int main (int argc, char ** argv)
   glutIdleFunc(idle);
   init();
   glutMainLoop();
+   */
+ 
 }

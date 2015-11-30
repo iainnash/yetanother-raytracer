@@ -53,7 +53,31 @@ void parse_shi(FILE*file,double *shi)
   printf("shi: %f\n",*shi);
 }
 
-bool Scene::hasNoObjectIntersections(const Ray& r) {
+const Color Scene::ray_to_raster(const Ray& r) {
+  float raymin;
+  ShadeHint hitsh;
+  SceneObject *curobj = getClosestObject(r, &raymin, &hitsh);
+  if (curobj == nullptr) {
+    return Color(1.f, 1.f, 1.f);
+  } else {
+    Color pix_col(ambient_light);
+    // we've intesected an object
+    for (auto &light : lights) {
+      const Ray& shadowRay = r.createShadowRay(raymin, light);
+      if (hasNoObjectIntersections(curobj, shadowRay)) {
+        switch (curobj->type()) {
+          case SceneObject::TYPE::SPHERE:
+          case SceneObject::TYPE::TRIANGLE:
+            pix_col += curobj->calc_color(shadowRay, light, &hitsh);
+            break;
+        }
+      }
+    }
+    return pix_col;
+  }
+}
+
+bool Scene::hasNoObjectIntersections(const SceneObject *curobj, const Ray& r) {
   ShadeHint sh;
   float mint;
   for (auto &sphere : spheres) {
@@ -61,11 +85,16 @@ bool Scene::hasNoObjectIntersections(const Ray& r) {
       return false;
     }
   }
-  for (auto &triangle : triangles) {
+  // this is seriously messed up
+  /*
+   for (auto &triangle : triangles) {
     if (triangle.hit(r, &mint, &sh)) {
-      return false;
+      //if (mint >= 0) {
+        return false;
+      //}
     }
   }
+   */
   return true;
 }
 
@@ -77,18 +106,6 @@ SceneObject* Scene::getClosestObject(
   ShadeHint maxsh;
   SceneObject *curobj = NULL;
   
-  for (auto &triangle : triangles) {
-    float tmin;
-    
-    if (triangle.hit(ray, &tmin, &sh)) {
-      if (tmin < *raymin) {
-        curobj = &triangle;
-        *hitsh = sh;
-        *raymin = tmin;
-      }
-    }
-  }
-  
   for (auto &sphere : spheres) {
     if (sphere.hit(ray, &tmin, &sh)) {
       if (tmin < *raymin) {
@@ -98,6 +115,17 @@ SceneObject* Scene::getClosestObject(
       }
     }
   }
+  
+  for (auto &triangle : triangles) {
+    if (triangle.hit(ray, &tmin, &sh)) {
+      if (tmin < *raymin) {
+        curobj = &triangle;
+        *hitsh = sh;
+        *raymin = tmin;
+      }
+    }
+  }
+  
   return curobj;
 }
 

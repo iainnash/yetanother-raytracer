@@ -17,7 +17,7 @@ Ray::Ray(const vec3& o, const vec3& d) : o(o), d(d) {
 }
 
 // static
-Ray Ray::createShadowRay(float md, Light& l) {
+const Ray Ray::createShadowRay(float md, Light& l) const {
   vec3 pi = o + d * md;
   Ray shadowRay(pi, normalize(l.position - pi));
   return shadowRay;

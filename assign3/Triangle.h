@@ -25,8 +25,8 @@ public:
   vec3 normal;
   
   void cache_calc() {
-    v2mv0 = v[2].position - v[0].position;
     v1mv0 = v[1].position - v[0].position;
+    v2mv0 = v[2].position - v[0].position;
     normal = cross(v1mv0, v2mv0);
   }
   
@@ -35,13 +35,17 @@ public:
   }
   
   virtual Color calc_color(const Ray& shadowRay, const Light& light, const ShadeHint *sh) {
-    /*
-    vec3 inorm = float(1.0/radius) * (shadowRay.o - position);
-    if (sh->cam_distance < 0) inorm *= -1; // norm is behind camera
+    float tri_w = (1.f - sh->tri_u - sh->tri_v);
     
-    float LdotN = clamp2one(dot(shadowRay.d, inorm));
+    vec3 color_diffuse = sh->tri_u*vec3fromdouble(v[1].color_diffuse) + sh->tri_v*vec3fromdouble(v[2].color_diffuse) + tri_w * vec3fromdouble(v[0].color_diffuse);
     
-    vec3 shadowDir = normalize(2.f * LdotN * inorm - shadowRay.d);
+    vec3 color_specular = sh->tri_u*vec3fromdouble(v[1].color_specular) + sh->tri_v*vec3fromdouble(v[2].color_specular) + tri_w * vec3fromdouble(v[0].color_specular);
+    
+    float shininess = sh->tri_u*v[1].shininess + sh->tri_v * v[2].shininess + tri_w * v[0].shininess;
+    
+    float LdotN = clamp2one(dot(shadowRay.d, normal));
+    
+    vec3 shadowDir = normalize(2.f * LdotN * normal - shadowRay.d);
     float RdotV = clamp2one(dot(shadowDir, normalize(shadowRay.o)));
     
     // this equation: I = lightColor * (kd * (L dot N) + ks * (R dot V) ^ sh)
@@ -51,8 +55,6 @@ public:
     * vec3fromdouble(light.color);
     
     return Color(colorI);
-     */
-    return Color(0.f, 0.f, 0.f);
   }
   
   Triangle(Vertex v[3]) {
@@ -63,23 +65,21 @@ public:
   }
   
   virtual bool hit(const Ray& ray, float *tmin, ShadeHint *sh) {
-    vec3 pvec = cross(ray.d, v2mv0);
-    float det = dot(v1mv0, pvec);
-    
-    if (det < kEpsilon) return false;
-    
-    float invdet = 1/det;
+    const vec3 pvec = cross(ray.d, v2mv0);
+    const float det = dot(v1mv0, pvec);
+    if (fabs(det) < kEpsilon) return false;
+    const float invdet = 1/det;
     
     vec3 tvec = ray.o - v[0].position;
     float u = dot(tvec, pvec) * invdet;
-    if (u < 0 || u > 1) return false;
+    if (u < 0.0 || u > 1.0) return false;
     
     vec3 qvec = cross(tvec, v1mv0);
     float v = dot(ray.d, qvec) * invdet;
-    if (v < 0 || u + v > 1) return false;
+    if (v < 0.0 || u + v > 1.0) return false;
     *tmin = dot(v2mv0, qvec) * invdet;
-    sh->normal = normal;
-    sh->local_hit = ray.o + *tmin * ray.d;
+    sh->tri_u = u;
+    sh->tri_v = v;
     sh->cam_distance = *tmin;
     return true;
   }
