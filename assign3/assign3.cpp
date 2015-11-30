@@ -37,8 +37,8 @@ char *filename=NULL;
 int mode=MODE_DISPLAY;
 
 //you may want to make these smaller for debugging purposes
-#define WIDTH 640
-#define HEIGHT 480
+#define WIDTH 1280
+#define HEIGHT 960
 
 //the field of view of the camera
 #define fov 60.0
@@ -70,7 +70,7 @@ void save_jpg()
 {
   Pic *in = NULL;
   
-  in = pic_alloc(640, 480, 3, NULL);
+  in = pic_alloc(WIDTH, HEIGHT, 3, NULL);
   printf("Saving JPEG file: %s\n", filename);
   
   memcpy(in->pix,buffer,3*WIDTH*HEIGHT);
@@ -92,19 +92,11 @@ void draw_scene_threaded(int numThreads) {
   
   vector<RenderTask*> rp_v;
   
-  RenderTask ***rpg = new RenderTask**[perRows];
-  for (int i = 0; i < perRows; i++) {
-    rpg[i] = new RenderTask*[perCols];
-  }
-  
   for (int yi = 0, yti = 0; yi <= HEIGHT - perRows; yi += perRows, yti++) {
     int ym = std::min(yi + perRows, HEIGHT);
     for (int xi = 0, xti = 0; xi <= WIDTH - perCols; xi += perCols, xti++) {
       int xm = std::min(xi + perCols, WIDTH);
-      int xrange = xm - xi;
-      int yrange = ym - yi;
       RenderTask *rp = new RenderTask(scene, thrower, ym, yi, xm, xi);
-      rpg[yti][xti] = rp;
       rp_v.push_back(rp);
     }
   }

@@ -85,16 +85,11 @@ bool Scene::hasNoObjectIntersections(const SceneObject *curobj, const Ray& r) {
       return false;
     }
   }
-  // this is seriously messed up
-  /*
-   for (auto &triangle : triangles) {
+  for (auto &triangle : triangles) {
     if (triangle.hit(r, &mint, &sh)) {
-      //if (mint >= 0) {
-        return false;
-      //}
+      //return false;
     }
   }
-   */
   return true;
 }
 

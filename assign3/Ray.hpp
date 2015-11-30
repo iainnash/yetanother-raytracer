@@ -22,7 +22,7 @@ public:
   Ray(const vec3& origin, const vec3& dir);
   Ray(const Ray &obj);
   ~Ray();
-  const Ray createShadowRay(float md, Light& l) const;
+  const Ray createShadowRay(vec3 cp, float md, Light& l) const;
   /*
   Ray(const Ray& ray);
   Ray& operator=(const Ray& rhs);
