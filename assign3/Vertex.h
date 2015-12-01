@@ -9,9 +9,11 @@
 #ifndef Vertex_h
 #define Vertex_h
 
+#include <glm/vec3.hpp>
+
 struct Vertex
 {
-  vec3 position;
+  glm::vec3 position;
   double color_diffuse[3];
   double color_specular[3];
   double normal[3];

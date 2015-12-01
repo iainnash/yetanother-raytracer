@@ -53,7 +53,7 @@ void parse_shi(FILE*file,double *shi)
   printf("shi: %f\n",*shi);
 }
 
-const Color Scene::ray_to_raster(const Ray& r) {
+Color Scene::ray_to_raster(const Ray& r, unsigned int depth) {
   float raymin;
   ShadeHint hitsh;
   SceneObject *curobj = getClosestObject(r, &raymin, &hitsh);
@@ -68,7 +68,7 @@ const Color Scene::ray_to_raster(const Ray& r) {
         switch (curobj->type()) {
           case SceneObject::TYPE::SPHERE:
           case SceneObject::TYPE::TRIANGLE:
-            pix_col += curobj->calc_color(shadowRay, light, &hitsh);
+            pix_col += curobj->calc_color(this, shadowRay, light, &hitsh, depth + 1);
             break;
         }
       }
@@ -80,14 +80,22 @@ const Color Scene::ray_to_raster(const Ray& r) {
 bool Scene::hasNoObjectIntersections(const SceneObject *curobj, const Ray& r) {
   ShadeHint sh;
   float mint;
+  return true;
+  // self-intersection
+  // t-values (evalue t-value < 0.000001, object and light ray don't include neg t values)
+  // light casts ray backwards (something between)
   for (auto &sphere : spheres) {
-    if (sphere.hit(r, &mint, &sh)) {
-      return false;
+    if (&sphere != curobj && sphere.hit(r, &mint, &sh)) {
+      if (mint > kEpsilon) {
+        return false;
+      }
     }
   }
   for (auto &triangle : triangles) {
-    if (triangle.hit(r, &mint, &sh)) {
-      //return false;
+    if (&triangle != curobj && triangle.hit(r, &mint, &sh)) {
+      if (mint > kEpsilon) {
+        return false;
+      }
     }
   }
   return true;

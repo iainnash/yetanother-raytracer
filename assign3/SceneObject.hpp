@@ -15,13 +15,13 @@
 class Ray;
 class Light;
 class ShadeHint;
-
+class Scene;
 
 class SceneObject {
 public:
   enum TYPE { SPHERE, TRIANGLE, LIGHT };
   virtual int type() = 0;
-  virtual Color calc_color(const Ray& shadowRay, const Light& light, const ShadeHint *sh) {
+  virtual Color calc_color(Scene *s, const Ray& shadowRay, const Light& light, const ShadeHint *sh, int depth) {
     return Color(0.0f, 0.0f, 0.0f);
   }
   virtual bool hit(const Ray& ray, float *tmin, ShadeHint *sh) {

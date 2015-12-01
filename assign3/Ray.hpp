@@ -22,12 +22,7 @@ public:
   Ray(const vec3& origin, const vec3& dir);
   Ray(const Ray &obj);
   ~Ray();
-  const Ray createShadowRay(vec3 cp, float md, Light& l) const;
-  /*
-  Ray(const Ray& ray);
-  Ray& operator=(const Ray& rhs);
-  ~Ray(void);
-   */
+  const Ray createShadowRay(float md, Light& l) const;
 };
 
 class RayThrower {
@@ -44,9 +39,9 @@ public:
     invw = 1.f/w;
     invh = 1.f/h;
   }
-  const Ray& cast_fast(int x, int y) {
-    float lookx = (2*((float(x)+0.5)*invw)-1) * angle * aspectratio;
-    float looky = (1 - 2 * (float(y) + 0.5)*invh) * angle;
+  const Ray& cast_fast(float x, float y) {
+    float lookx = (2*((x+0.5)*invw)-1) * angle * aspectratio;
+    float looky = (1 - 2 * (y+0.5)*invh) * angle;
     rayi.d = normalize(vec3(lookx, looky, -1));
     return rayi;
   }

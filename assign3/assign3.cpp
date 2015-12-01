@@ -16,6 +16,7 @@ Name: Iain Nash
 #include "SceneObject.hpp"
 #include "Scene.hpp"
 #include <glm/vec3.hpp>
+#include "Constants.h"
 #include "ShadeHint.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Color.h"
@@ -37,8 +38,11 @@ char *filename=NULL;
 int mode=MODE_DISPLAY;
 
 //you may want to make these smaller for debugging purposes
-#define WIDTH 1280
-#define HEIGHT 960
+//#define WIDTH 1280
+//#define HEIGHT 960
+
+#define WIDTH 640
+#define HEIGHT 480
 
 //the field of view of the camera
 #define fov 60.0
@@ -56,11 +60,18 @@ void *run_thread(void *renderproc) {
   RenderTask *rp = (RenderTask*)renderproc;
   for (int y = 0; y < rp->yrange(); y++) {
     for (int x = 0; x < rp->xrange(); x++) {
-      Ray ray = rp->rt.cast_fast(rp->xi + x, rp->yi + y);
-      Color r = rp->s.ray_to_raster(ray);
-      buffer[rp->yi + y][rp->xi + x][0] = r.get_r();
-      buffer[rp->yi + y][rp->xi + x][1] = r.get_g();
-      buffer[rp->yi + y][rp->xi + x][2] = r.get_b();
+      const float nsamples = 12.f;
+      Color out(0.f, 0.f, 0.f);
+      for (int i = 0; i < (int)nsamples; i++) {
+        Ray ray = rp->rt.cast_fast(rp->xi + x - 0.5f + RAND_FLOAT, rp->yi + y - 0.5f + RAND_FLOAT);
+        out += rp->s.ray_to_raster(ray, 1);
+      }
+      out.r /= nsamples;
+      out.g /= nsamples;
+      out.b /= nsamples;
+      buffer[rp->yi + y][rp->xi + x][0] = out.get_r();
+      buffer[rp->yi + y][rp->xi + x][1] = out.get_g();
+      buffer[rp->yi + y][rp->xi + x][2] = out.get_b();
     }
   }
   pthread_exit(NULL);
@@ -159,7 +170,7 @@ void draw_scene()
     for(int xi=0; xi < WIDTH; xi++)
     {
       ray = raythrower.cast_fast(xi, yi);
-      Color c = scene.ray_to_raster(ray);
+      Color c = scene.ray_to_raster(ray, 1);
       plot_pixel(xi, HEIGHT-1-yi, c.get_r(), c.get_g(), c.get_b());
     }
     glEnd();

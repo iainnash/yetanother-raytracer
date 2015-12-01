@@ -14,14 +14,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include "SceneObject.hpp"
-#include "Triangle.h"
-#include "Sphere.h"
+#include "Triangle.hpp"
+#include "Sphere.hpp"
 #include "Vertex.h"
 #include "Light.h"
 #include "stdio.h"
 #include <vector>
 
 using namespace glm;
+
 
 
 class Scene {
@@ -33,7 +34,7 @@ public:
   bool hasNoObjectIntersections(const SceneObject *o, const Ray& r);
   SceneObject* getClosestObject(const Ray& ray, float *raymin, ShadeHint *hitsh);
   void read_file(char *file);
-  const Color ray_to_raster(const Ray& r);
+  Color ray_to_raster(const Ray& r, unsigned int depth);
 };
 
 
