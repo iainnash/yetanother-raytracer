@@ -1,0 +1,38 @@
+# Makefile 
+# CSCI 480
+# Assignment 3
+
+# we assume the pic directory locates one level above,
+# change PIC_PATH if this is not the case
+PIC_PATH = $(abspath $(CURDIR)/lib/pic)
+
+INCLUDE = -I$(PIC_PATH) -I/lib/
+LIBRARIES = -L$(PIC_PATH) -framework OpenGL -framework GLUT -lpicio $(PIC_PATH)/libjpeg.a
+
+COMPILER = clang++
+COMPILERFLAGS = -O3 $(INCLUDE) -Wno-deprecated-declarations -std=c++11
+
+SCENES = $(wildcard scene/*.scene)
+SCENE_RENDER = $(addprefix img/,$(notdir $(SCENES:.scene=.jpg)))
+
+PROGRAM = assign3
+SOURCE = $(wildcard src/*.cpp)
+OBJECT = $(addprefix obj/,$(notdir $(SOURCE:.cpp=.o)))
+
+
+obj/%.o: src/%.cpp
+	$(COMPILER) -c $(COMPILERFLAGS) -c -o $@ $<
+
+all: $(PROGRAM)
+
+$(PROGRAM): $(OBJECT)
+	$(COMPILER) $(COMPILERFLAGS) -o $(PROGRAM) $(OBJECT) $(LIBRARIES)
+
+clean:
+	rm obj/*.o img/*.jpg $(PROGRAM)
+
+img/%.jpg: scene/%.scene
+	./assign3 $< $@ --nodisplay
+
+render: $(SCENE_RENDER)
+	$(info Rendered all scene files)

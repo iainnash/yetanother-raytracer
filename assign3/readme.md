@@ -2,16 +2,27 @@ Assignment #3: Ray tracing
 
 FULL NAME: john nash
 
+SCRIPT USAGE
+------------------
+* to compile: `make assign3`
+
+* to render: `make render`
+
+* `assign3 inscene` -> displays only
+* `assign3 inscene out.jpg` -> displays and writes jpg file
+* `assign3 inscene out.jpg --nodisplay` -> only writes jpg file
+
+EXAMPLE IMAGE PATH
+------------------
+All numbered demo images can be found in raytracer-images.
+
 
 MANDATORY FEATURES
 ------------------
 
-<Under "Status" please indicate whether it has been implemented and is
-functioning correctly.  If not, please explain the current status.>
-
 Feature:                                 Status: finish? (yes/no)
 -------------------------------------    -------------------------
-1) Ray tracing triangles                  yes :)
+1) Ray tracing triangles                  yes.
 
 2) Ray tracing sphere                     yes.
 
@@ -19,12 +30,21 @@ Feature:                                 Status: finish? (yes/no)
 
 4) Sphere Phong Shading                   yes.
 
-5) Shadows rays                           works for spheres, issues with triangles.
+5) Shadows rays                           yes.
 
 6) Still images                           yes.
    
 7) Extra Credit (up to 20 points)
-  added multithreading to the raytracer / breaks into 9 images to take advantage of N cpu cores (configurable)
-  decreases time from 4 seconds to 130 ms for small scenes. outputs to jpeg.
 
-   !!! explain your extra credit here, if applicable !!!
+7a)  added multithreading to the raytracer / breaks into 9 images to take advantage of N cpu cores (configurable)
+    decreases time from 4 seconds to 130 ms for small scenes. outputs to jpeg.
+    allows for a fast high-quality render.
+
+7b) added (good) antialiasing using random grid sampling technique
+
+7c) added a set of script(s) and make files allowing for animating scenes
+  	(see animate folder)
+  	animation and scene building API in python to allow for code to generate scene files.
+  	added makefile system to automatically build and make gifs from scenes (animate/gif) (animate/Makefile)
+
+
