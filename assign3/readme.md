@@ -33,18 +33,23 @@ Feature:                                 Status: finish? (yes/no)
 5) Shadows rays                           yes.
 
 6) Still images                           yes.
-   
+
+ex1) Soft shadows 						  yes. (see raytracer-images/002.jpg and raytracer-images/003.jpg)
+ex2) Animation 							  yes. (see animate/gifs/balls.gif)
+ex3) Good antialiasing 					  yes. (see all images in raytracer-images/)
+ex4) Multithreaded tracer 				  yes. (see src/assign3.cpp)
+
 7) Extra Credit (up to 20 points)
 
-7a)  added multithreading to the raytracer / breaks into 9 images to take advantage of N cpu cores (configurable)
+7a) Added multithreading to the raytracer / breaks into 9 images to take advantage of N cpu cores (configurable)
     decreases time from 4 seconds to 130 ms for small scenes. outputs to jpeg.
     allows for a fast high-quality render.
 
-7b) added (good) antialiasing using random grid sampling technique
+7b) Added (good) antialiasing using random grid sampling technique
 
-7c) added a set of script(s) and make files allowing for animating scenes
+7c) Added a set of script(s) and make files allowing for animating scenes
   	(see animate folder)
   	animation and scene building API in python to allow for code to generate scene files.
   	added makefile system to automatically build and make gifs from scenes (animate/gif) (animate/Makefile)
 
-
+7e) Added soft shadows

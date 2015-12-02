@@ -22,7 +22,7 @@ public:
   Ray(const vec3& origin, const vec3& dir);
   Ray(const Ray &obj);
   ~Ray();
-  const Ray createShadowRay(float md, Light& l) const;
+  const Ray createShadowRay(float ox, float oy, float md, Light& l) const;
 };
 
 class RayThrower {

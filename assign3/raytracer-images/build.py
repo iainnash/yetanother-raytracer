@@ -1,5 +1,6 @@
 import glob
 import subprocess
+import os.path, time
 
 paths = ['../img/*.jpg', '../animate/jpgs/*.jpg']
 
@@ -9,6 +10,15 @@ for path in paths:
 
 for fi in range(len(files)):
 	filename = files[fi]
-	subprocess.call(['convert', '-resize', '50%', files[fi], '%03d.jpg' % fi])
+	outname = '%03d.jpg' % fi
+	r = True
+	if (os.path.exists(outname)):
+		ctime0 = os.path.getctime(outname)
+		ctime1 = os.path.getctime(filename)
+		if (ctime1 <= ctime0):
+			r = False
+	if r:
+		print 'Processing %s' % filename
+		subprocess.call(['convert', '-resize', '50%', filename, outname])
 
 print 'Done processing images'

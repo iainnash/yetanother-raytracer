@@ -14,6 +14,8 @@
 #define MAX_DEPTH 5
 #define RECURSIVE false
 
+//#define SOFT_SHADOW
+
 #define BG_COLOR Color(0.f, 0.f, 0.f)
 
 #define RAND_FLOAT ((double) rand() / (RAND_MAX))

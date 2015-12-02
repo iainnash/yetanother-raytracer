@@ -56,23 +56,36 @@ void parse_shi(FILE*file,double *shi)
 Color Scene::ray_to_raster(const Ray& r, unsigned int depth) {
   float raymin;
   ShadeHint hitsh;
+  int ox = 0;
+  int oy = 0;
   SceneObject *curobj = getClosestObject(r, &raymin, &hitsh);
   if (curobj == nullptr) {
     return BG_COLOR;
   } else {
     Color pix_col(ambient_light);
     // we've intesected an object
-    for (auto &light : lights) {
-      const Ray& shadowRay = r.createShadowRay(raymin, light);
-      if (hasNoObjectIntersections(curobj, shadowRay)) {
-        switch (curobj->type()) {
-          case SceneObject::TYPE::SPHERE:
-          case SceneObject::TYPE::TRIANGLE:
-            pix_col += curobj->calc_color(this, shadowRay, light, &hitsh, depth + 1);
-            break;
+    #ifdef SOFT_SHADOW
+    for (int i = 0; i < 4; i++) {
+    for (ox = 0; ox < 2; ox++) {
+    for (oy = 0; oy < 2; oy++) {
+#endif
+      for (auto &light : lights) {
+          const Ray& shadowRay = r.createShadowRay(ox*0.2, oy*0.2, raymin, light);
+          if (hasNoObjectIntersections(curobj, shadowRay)) {
+            switch (curobj->type()) {
+              case SceneObject::TYPE::SPHERE:
+              case SceneObject::TYPE::TRIANGLE:
+                pix_col += curobj->calc_color(this, shadowRay, light, &hitsh, depth + 1);
+                break;
+            }
+          }
         }
-      }
-    }
+    #ifdef SOFT_SHADOW
+      } } }
+      pix_col.r /= 15.0;
+      pix_col.g /= 15.0;
+      pix_col.b /= 15.0;
+#endif
     return pix_col;
   }
 }
@@ -93,7 +106,7 @@ bool Scene::hasNoObjectIntersections(const SceneObject *curobj, const Ray& r) {
   }
   for (auto &triangle : triangles) {
     if (&triangle != curobj && triangle.hit(r, &mint, &sh)) {
-      if (mint > kEpsilon) {
+      if (mint > kEpsilon*20) {
         return false;
       }
     }

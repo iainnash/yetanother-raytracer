@@ -17,10 +17,11 @@ SCENE_RENDER = $(addprefix img/,$(notdir $(SCENES:.scene=.jpg)))
 
 PROGRAM = assign3
 SOURCE = $(wildcard src/*.cpp)
+HEADERS = $(wildcard src/*.h)
 OBJECT = $(addprefix obj/,$(notdir $(SOURCE:.cpp=.o)))
 
 
-obj/%.o: src/%.cpp
+obj/%.o: src/%.cpp $(HEADERS)
 	$(COMPILER) -c $(COMPILERFLAGS) -c -o $@ $<
 
 all: $(PROGRAM)
@@ -29,10 +30,10 @@ $(PROGRAM): $(OBJECT)
 	$(COMPILER) $(COMPILERFLAGS) -o $(PROGRAM) $(OBJECT) $(LIBRARIES)
 
 clean:
-	rm obj/*.o img/*.jpg $(PROGRAM)
+	rm obj/*.o  $(PROGRAM)
 
-img/%.jpg: scene/%.scene
-	./assign3 $< $@ --nodisplay
+img/%.jpg: scene/%.scene $(PROGRAM)
+	./$(PROGRAM) $< $@ --nodisplay
 
 render: $(SCENE_RENDER)
 	$(info Rendered all scene files)

@@ -54,11 +54,12 @@ void plot_pixel_jpeg(int x,int y,unsigned char r,unsigned char g,unsigned char b
 void plot_pixel(int x,int y,unsigned char r,unsigned char g,unsigned char b);
 
 void *run_thread(void *renderproc) {
+  const float num_r = 4.0;
   RenderTask *rp = (RenderTask*)renderproc;
   for (int y = 0; y < rp->yrange(); y++) {
     for (int x = 0; x < rp->xrange(); x++) {
       Color out(0.f, 0.f, 0.f);
-      for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < (int)num_r; i++) {
         for (int cux = 0; cux < 2; cux++) {
           for (int cuy = 0; cuy < 2; cuy++) {
             Ray ray = rp->rt.cast_fast(rp->xi + x - 0.5f + 0.25*cux + RAND_FLOAT*0.25, rp->yi + y - 0.5f + 0.25*cux + RAND_FLOAT*0.25);
@@ -66,9 +67,9 @@ void *run_thread(void *renderproc) {
           }
         }
       }
-      out.r /= 12.f;
-      out.g /= 12.f;
-      out.b /= 12.f;
+      out.r /= num_r*4;
+      out.g /= num_r*4;
+      out.b /= num_r*4;
       buffer[rp->yi + y][rp->xi + x][0] = out.get_r();
       buffer[rp->yi + y][rp->xi + x][1] = out.get_g();
       buffer[rp->yi + y][rp->xi + x][2] = out.get_b();
