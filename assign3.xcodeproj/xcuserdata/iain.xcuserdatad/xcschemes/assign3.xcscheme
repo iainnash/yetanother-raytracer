@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/iain/Dropbox/Fa2015/CSCI420/Code/assign3"
+      customWorkingDirectory = "/Users/iain/Dropbox/Fa2015/CSCI420/Code/assign3/assign3"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -64,7 +64,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "trianglefile.txt"
+            argument = "scenes/scenetest1.txt"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "testxcode.jpg"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
