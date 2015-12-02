@@ -9,16 +9,17 @@
 /* Begin PBXBuildFile section */
 		AE6D5C301C0A3E8E007E4A45 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6D5C2F1C0A3E8E007E4A45 /* GLUT.framework */; };
 		AE6D5C321C0A3E96007E4A45 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6D5C311C0A3E96007E4A45 /* OpenGL.framework */; };
-		AE6D5C601C0B95E0007E4A45 /* assign3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6D5C531C0B95E0007E4A45 /* assign3.cpp */; settings = {ASSET_TAGS = (); }; };
-		AE6D5C621C0B95E0007E4A45 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6D5C561C0B95E0007E4A45 /* Scene.cpp */; settings = {ASSET_TAGS = (); }; };
-		AE6D5C631C0B95E0007E4A45 /* SceneObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6D5C571C0B95E0007E4A45 /* SceneObject.cpp */; settings = {ASSET_TAGS = (); }; };
-		AE6D5C641C0B95E0007E4A45 /* ShadeHint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6D5C5A1C0B95E0007E4A45 /* ShadeHint.cpp */; settings = {ASSET_TAGS = (); }; };
-		AE6D5C651C0B95E0007E4A45 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6D5C5C1C0B95E0007E4A45 /* Ray.cpp */; settings = {ASSET_TAGS = (); }; };
-		AE6D5C6E1C0C0ED1007E4A45 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6D5C5D1C0B95E0007E4A45 /* libjpeg.a */; };
-		AE6D5C6F1C0C0ED2007E4A45 /* libpicio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6D5C5E1C0B95E0007E4A45 /* libpicio.a */; };
 		AE6D5C781C0C6301007E4A45 /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6D5C771C0C6301007E4A45 /* libpthread.tbd */; };
-		AE6E50A61C0D25CF0024BC42 /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50A41C0D25CF0024BC42 /* Triangle.cpp */; settings = {ASSET_TAGS = (); }; };
-		AE6E50A91C0D264F0024BC42 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50A71C0D264F0024BC42 /* Sphere.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C01C0F851F0024BC42 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50AC1C0F851F0024BC42 /* Scene.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C11C0F851F0024BC42 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50AD1C0F851F0024BC42 /* Ray.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C21C0F851F0024BC42 /* assign3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50AF1C0F851F0024BC42 /* assign3.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C31C0F851F0024BC42 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50B01C0F851F0024BC42 /* Sphere.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C41C0F851F0024BC42 /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50B11C0F851F0024BC42 /* Triangle.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C51C0F851F0024BC42 /* RenderTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50BD1C0F851F0024BC42 /* RenderTask.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C61C0F851F0024BC42 /* SceneObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50BE1C0F851F0024BC42 /* SceneObject.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C71C0F851F0024BC42 /* ShadeHint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE6E50BF1C0F851F0024BC42 /* ShadeHint.cpp */; settings = {ASSET_TAGS = (); }; };
+		AE6E50C91C0F85BF0024BC42 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6E50C81C0F85BF0024BC42 /* libjpeg.a */; settings = {ASSET_TAGS = (); }; };
+		AE6E50CB1C0F85C60024BC42 /* libpicio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6E50CA1C0F85C60024BC42 /* libpicio.a */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,31 +38,30 @@
 		AE6D5C231C0A3DFA007E4A45 /* assign3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = assign3; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE6D5C2F1C0A3E8E007E4A45 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		AE6D5C311C0A3E96007E4A45 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		AE6D5C521C0B95E0007E4A45 /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
-		AE6D5C531C0B95E0007E4A45 /* assign3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assign3.cpp; sourceTree = "<group>"; };
-		AE6D5C551C0B95E0007E4A45 /* RenderTask.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderTask.hpp; sourceTree = "<group>"; };
-		AE6D5C561C0B95E0007E4A45 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
-		AE6D5C571C0B95E0007E4A45 /* SceneObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneObject.cpp; sourceTree = "<group>"; };
-		AE6D5C581C0B95E0007E4A45 /* SceneObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneObject.hpp; sourceTree = "<group>"; };
-		AE6D5C591C0B95E0007E4A45 /* ShadeHint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShadeHint.hpp; sourceTree = "<group>"; };
-		AE6D5C5A1C0B95E0007E4A45 /* ShadeHint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShadeHint.cpp; sourceTree = "<group>"; };
-		AE6D5C5B1C0B95E0007E4A45 /* Ray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
-		AE6D5C5C1C0B95E0007E4A45 /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
-		AE6D5C5D1C0B95E0007E4A45 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = assign3/libpic/libjpeg.a; sourceTree = "<group>"; };
-		AE6D5C5E1C0B95E0007E4A45 /* libpicio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpicio.a; path = assign3/libpic/libpicio.a; sourceTree = "<group>"; };
-		AE6D5C5F1C0B95E0007E4A45 /* pic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pic.h; path = assign3/pic.h; sourceTree = "<group>"; };
-		AE6D5C6A1C0B9637007E4A45 /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Vertex.h; path = assign3/Vertex.h; sourceTree = "<group>"; };
-		AE6D5C6B1C0B964B007E4A45 /* Light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
-		AE6D5C6C1C0B9B2A007E4A45 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = assign3/Constants.h; sourceTree = "<group>"; };
-		AE6D5C6D1C0BCEE9007E4A45 /* Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Color.h; path = assign3/Color.h; sourceTree = "<group>"; };
-		AE6D5C701C0C151D007E4A45 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = assign3/Utils.h; sourceTree = "<group>"; };
-		AE6D5C761C0C3B93007E4A45 /* scenetest1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = scenetest1.txt; path = scenes/scenetest1.txt; sourceTree = "<group>"; };
 		AE6D5C771C0C6301007E4A45 /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
-		AE6E50A41C0D25CF0024BC42 /* Triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle.cpp; sourceTree = "<group>"; };
-		AE6E50A51C0D25CF0024BC42 /* Triangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
-		AE6E50A71C0D264F0024BC42 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
-		AE6E50A81C0D264F0024BC42 /* Sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
-		AE6E50AA1C0D2E1F0024BC42 /* testxcode.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testxcode.jpg; sourceTree = "<group>"; };
+		AE6E50AB1C0F851F0024BC42 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = src/Constants.h; sourceTree = "<group>"; };
+		AE6E50AC1C0F851F0024BC42 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = src/Scene.cpp; sourceTree = "<group>"; };
+		AE6E50AD1C0F851F0024BC42 /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Ray.cpp; path = src/Ray.cpp; sourceTree = "<group>"; };
+		AE6E50AE1C0F851F0024BC42 /* Ray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Ray.hpp; path = src/Ray.hpp; sourceTree = "<group>"; };
+		AE6E50AF1C0F851F0024BC42 /* assign3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = assign3.cpp; path = src/assign3.cpp; sourceTree = "<group>"; };
+		AE6E50B01C0F851F0024BC42 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sphere.cpp; path = src/Sphere.cpp; sourceTree = "<group>"; };
+		AE6E50B11C0F851F0024BC42 /* Triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Triangle.cpp; path = src/Triangle.cpp; sourceTree = "<group>"; };
+		AE6E50B21C0F851F0024BC42 /* Triangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Triangle.hpp; path = src/Triangle.hpp; sourceTree = "<group>"; };
+		AE6E50B31C0F851F0024BC42 /* SceneObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SceneObject.hpp; path = src/SceneObject.hpp; sourceTree = "<group>"; };
+		AE6E50B41C0F851F0024BC42 /* Sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sphere.hpp; path = src/Sphere.hpp; sourceTree = "<group>"; };
+		AE6E50B51C0F851F0024BC42 /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vertex.h; path = src/Vertex.h; sourceTree = "<group>"; };
+		AE6E50B61C0F851F0024BC42 /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Scene.hpp; path = src/Scene.hpp; sourceTree = "<group>"; };
+		AE6E50B71C0F851F0024BC42 /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Triangle.h; path = src/Triangle.h; sourceTree = "<group>"; };
+		AE6E50B81C0F851F0024BC42 /* ShadeHint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ShadeHint.hpp; path = src/ShadeHint.hpp; sourceTree = "<group>"; };
+		AE6E50B91C0F851F0024BC42 /* RenderTask.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RenderTask.hpp; path = src/RenderTask.hpp; sourceTree = "<group>"; };
+		AE6E50BA1C0F851F0024BC42 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = src/Utils.h; sourceTree = "<group>"; };
+		AE6E50BB1C0F851F0024BC42 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Color.h; path = src/Color.h; sourceTree = "<group>"; };
+		AE6E50BC1C0F851F0024BC42 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Light.h; path = src/Light.h; sourceTree = "<group>"; };
+		AE6E50BD1C0F851F0024BC42 /* RenderTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderTask.cpp; path = src/RenderTask.cpp; sourceTree = "<group>"; };
+		AE6E50BE1C0F851F0024BC42 /* SceneObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneObject.cpp; path = src/SceneObject.cpp; sourceTree = "<group>"; };
+		AE6E50BF1C0F851F0024BC42 /* ShadeHint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShadeHint.cpp; path = src/ShadeHint.cpp; sourceTree = "<group>"; };
+		AE6E50C81C0F85BF0024BC42 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = assign3/lib/pic/libjpeg.a; sourceTree = "<group>"; };
+		AE6E50CA1C0F85C60024BC42 /* libpicio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpicio.a; path = assign3/lib/pic/libpicio.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,10 +70,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE6D5C781C0C6301007E4A45 /* libpthread.tbd in Frameworks */,
+				AE6E50CB1C0F85C60024BC42 /* libpicio.a in Frameworks */,
+				AE6E50C91C0F85BF0024BC42 /* libjpeg.a in Frameworks */,
 				AE6D5C321C0A3E96007E4A45 /* OpenGL.framework in Frameworks */,
 				AE6D5C301C0A3E8E007E4A45 /* GLUT.framework in Frameworks */,
-				AE6D5C6E1C0C0ED1007E4A45 /* libjpeg.a in Frameworks */,
-				AE6D5C6F1C0C0ED2007E4A45 /* libpicio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,24 +100,27 @@
 		AE6D5C251C0A3DFA007E4A45 /* assign3 */ = {
 			isa = PBXGroup;
 			children = (
-				AE6E50AA1C0D2E1F0024BC42 /* testxcode.jpg */,
-				AE6D5C751C0C3B7B007E4A45 /* scenes */,
-				AE6D5C531C0B95E0007E4A45 /* assign3.cpp */,
-				AE6D5C551C0B95E0007E4A45 /* RenderTask.hpp */,
-				AE6D5C521C0B95E0007E4A45 /* Scene.hpp */,
-				AE6D5C561C0B95E0007E4A45 /* Scene.cpp */,
-				AE6D5C571C0B95E0007E4A45 /* SceneObject.cpp */,
-				AE6D5C581C0B95E0007E4A45 /* SceneObject.hpp */,
-				AE6D5C591C0B95E0007E4A45 /* ShadeHint.hpp */,
-				AE6D5C5A1C0B95E0007E4A45 /* ShadeHint.cpp */,
-				AE6D5C5B1C0B95E0007E4A45 /* Ray.hpp */,
-				AE6D5C5C1C0B95E0007E4A45 /* Ray.cpp */,
-				AE6E50A41C0D25CF0024BC42 /* Triangle.cpp */,
-				AE6E50A51C0D25CF0024BC42 /* Triangle.hpp */,
-				AE6E50A71C0D264F0024BC42 /* Sphere.cpp */,
-				AE6E50A81C0D264F0024BC42 /* Sphere.hpp */,
-				AE6D5C6B1C0B964B007E4A45 /* Light.h */,
-				AE6D5C741C0C2781007E4A45 /* utils */,
+				AE6E50AB1C0F851F0024BC42 /* Constants.h */,
+				AE6E50AC1C0F851F0024BC42 /* Scene.cpp */,
+				AE6E50AD1C0F851F0024BC42 /* Ray.cpp */,
+				AE6E50AE1C0F851F0024BC42 /* Ray.hpp */,
+				AE6E50AF1C0F851F0024BC42 /* assign3.cpp */,
+				AE6E50B01C0F851F0024BC42 /* Sphere.cpp */,
+				AE6E50B11C0F851F0024BC42 /* Triangle.cpp */,
+				AE6E50B21C0F851F0024BC42 /* Triangle.hpp */,
+				AE6E50B31C0F851F0024BC42 /* SceneObject.hpp */,
+				AE6E50B41C0F851F0024BC42 /* Sphere.hpp */,
+				AE6E50B51C0F851F0024BC42 /* Vertex.h */,
+				AE6E50B61C0F851F0024BC42 /* Scene.hpp */,
+				AE6E50B71C0F851F0024BC42 /* Triangle.h */,
+				AE6E50B81C0F851F0024BC42 /* ShadeHint.hpp */,
+				AE6E50B91C0F851F0024BC42 /* RenderTask.hpp */,
+				AE6E50BA1C0F851F0024BC42 /* Utils.h */,
+				AE6E50BB1C0F851F0024BC42 /* Color.h */,
+				AE6E50BC1C0F851F0024BC42 /* Light.h */,
+				AE6E50BD1C0F851F0024BC42 /* RenderTask.cpp */,
+				AE6E50BE1C0F851F0024BC42 /* SceneObject.cpp */,
+				AE6E50BF1C0F851F0024BC42 /* ShadeHint.cpp */,
 			);
 			path = assign3;
 			sourceTree = "<group>";
@@ -125,34 +128,13 @@
 		AE6D5C731C0C276C007E4A45 /* frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE6E50CA1C0F85C60024BC42 /* libpicio.a */,
+				AE6E50C81C0F85BF0024BC42 /* libjpeg.a */,
 				AE6D5C771C0C6301007E4A45 /* libpthread.tbd */,
-				AE6D5C5F1C0B95E0007E4A45 /* pic.h */,
 				AE6D5C311C0A3E96007E4A45 /* OpenGL.framework */,
 				AE6D5C2F1C0A3E8E007E4A45 /* GLUT.framework */,
-				AE6D5C5D1C0B95E0007E4A45 /* libjpeg.a */,
-				AE6D5C5E1C0B95E0007E4A45 /* libpicio.a */,
 			);
 			name = frameworks;
-			sourceTree = "<group>";
-		};
-		AE6D5C741C0C2781007E4A45 /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				AE6D5C6A1C0B9637007E4A45 /* Vertex.h */,
-				AE6D5C6D1C0BCEE9007E4A45 /* Color.h */,
-				AE6D5C6C1C0B9B2A007E4A45 /* Constants.h */,
-				AE6D5C701C0C151D007E4A45 /* Utils.h */,
-			);
-			name = utils;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		AE6D5C751C0C3B7B007E4A45 /* scenes */ = {
-			isa = PBXGroup;
-			children = (
-				AE6D5C761C0C3B93007E4A45 /* scenetest1.txt */,
-			);
-			name = scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,13 +193,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE6D5C651C0B95E0007E4A45 /* Ray.cpp in Sources */,
-				AE6E50A61C0D25CF0024BC42 /* Triangle.cpp in Sources */,
-				AE6D5C641C0B95E0007E4A45 /* ShadeHint.cpp in Sources */,
-				AE6D5C621C0B95E0007E4A45 /* Scene.cpp in Sources */,
-				AE6E50A91C0D264F0024BC42 /* Sphere.cpp in Sources */,
-				AE6D5C631C0B95E0007E4A45 /* SceneObject.cpp in Sources */,
-				AE6D5C601C0B95E0007E4A45 /* assign3.cpp in Sources */,
+				AE6E50C11C0F851F0024BC42 /* Ray.cpp in Sources */,
+				AE6E50C01C0F851F0024BC42 /* Scene.cpp in Sources */,
+				AE6E50C21C0F851F0024BC42 /* assign3.cpp in Sources */,
+				AE6E50C51C0F851F0024BC42 /* RenderTask.cpp in Sources */,
+				AE6E50C41C0F851F0024BC42 /* Triangle.cpp in Sources */,
+				AE6E50C31C0F851F0024BC42 /* Sphere.cpp in Sources */,
+				AE6E50C71C0F851F0024BC42 /* ShadeHint.cpp in Sources */,
+				AE6E50C61C0F851F0024BC42 /* SceneObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,10 +288,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_OPTIMIZATION_LEVEL = 0;
-				HEADER_SEARCH_PATHS = /usr/local/Cellar/glm/0.9.7.1/include/;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/assign3/lib/pic",
+					"$(PROJECT_DIR)/assign3/lib/",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/assign3/libpic",
+					"$(PROJECT_DIR)/lib/pic",
+					"$(PROJECT_DIR)/assign3/lib/pic",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -317,10 +304,14 @@
 		AE6D5C2C1C0A3DFA007E4A45 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = /usr/local/Cellar/glm/0.9.7.1/include/;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/assign3/lib/pic",
+					"$(PROJECT_DIR)/assign3/lib/",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/assign3/libpic",
+					"$(PROJECT_DIR)/lib/pic",
+					"$(PROJECT_DIR)/assign3/lib/pic",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
