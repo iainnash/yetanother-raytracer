@@ -1,7 +1,5 @@
 Assignment #3: Ray tracing
 
-FULL NAME: john nash
-
 SCRIPT USAGE
 ------------------
 * to compile: `make assign3`
